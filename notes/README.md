@@ -1,1 +1,1 @@
-Page for notes
+Folder for notes?
