@@ -1,6 +1,6 @@
 # Data Sources (that seem simple)
 
-- USGS
+- [USGS](https://www.usgs.gov/products/data-and-tools/apis)
 
 - Satellite
   + SST-many
@@ -19,9 +19,9 @@
 - Dark Data
 
 - Citizen Science
-  + FU database
-  + Secchi project
-  + Land Trusts
+  + [FU database](https://www.eyeonwater.org/) manual download only
+  + [Secchi project](http://www.secchidisk.org/) requires registration and suggested donation
+  + [Land Trusts](https://mcoascience.org/resources/)
   
 - BCO-DMO
 
