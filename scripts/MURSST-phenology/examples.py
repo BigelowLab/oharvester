@@ -16,7 +16,7 @@ Compute and plot the phenology index
 
 from netCDF4 import Dataset
 import matplotlib.pyplot as plt
-from mpl_toolkits.basemap import Basemap
+#from mpl_toolkits.basemap import Basemap
 import numpy as np
 import sys, os
 import glob

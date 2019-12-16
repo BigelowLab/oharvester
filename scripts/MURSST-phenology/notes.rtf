@@ -1,0 +1,86 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2511
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Monaco;}
+{\colortbl;\red255\green255\blue255;\red242\green242\blue242;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\csgray\c95825;\csgray\c0\c85000;}
+\margl1440\margr1440\vieww10800\viewh5600\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Initial error:\
+\
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs18 \cf2 \cb3 \CocoaLigature0 nrecord$ python examples.py -c phenology.cfg\
+/Users/nrecord/anaconda/lib/python3.5/site-packages/matplotlib/__init__.py:988: UserWarning: Illegal line #1\
+	"$ cat ~/.matplotlib/matplotlibrc\
+"\
+	in file "/Users/nrecord/.matplotlib/matplotlibrc"\
+  warnings.warn('Illegal %s' % error_details)\
+Traceback (most recent call last):\
+  File "examples.py", line 19, in <module>\
+    from mpl_toolkits.basemap import Basemap\
+ImportError: No module named 'mpl_toolkits.basemap'
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+\
+\
+After reinstalling basemap:\
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs18 \cf2 \cb3 \CocoaLigature0 nrecord$ python3 examples.py -c phenology.cfg\
+/Users/nrecord/anaconda/lib/python3.5/site-packages/matplotlib/__init__.py:988: UserWarning: Illegal line #1\
+	"$ cat ~/.matplotlib/matplotlibrc\
+"\
+	in file "/Users/nrecord/.matplotlib/matplotlibrc"\
+  warnings.warn('Illegal %s' % error_details)\
+Traceback (most recent call last):\
+  File "examples.py", line 19, in <module>\
+    from mpl_toolkits.basemap import Basemap\
+  File "/Users/nrecord/anaconda/lib/python3.5/site-packages/mpl_toolkits/basemap/__init__.py", line 16, in <module>\
+    from matplotlib.cbook import is_scalar, dedent\
+ImportError: cannot import name 'is_scalar'\
+Zooplanktron:MURSST-phenology nrecord$ conda install matplotlib\
+Solving environment: / failed\
+\
+CondaError: KeyboardInterrupt
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+After commenting out the import basemap line:\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs18 \cf2 \cb3 \CocoaLigature0 nrecord$ python examples.py -c phenology.cfg\
+/Users/nrecord/anaconda/lib/python3.5/site-packages/matplotlib/__init__.py:988: UserWarning: Illegal line #1\
+	"$ cat ~/.matplotlib/matplotlibrc\
+"\
+	in file "/Users/nrecord/.matplotlib/matplotlibrc"\
+  warnings.warn('Illegal %s' % error_details)\
+RuntimeError: module compiled against API version 0xc but this version of numpy is 0xb\
+Traceback (most recent call last):\
+  File "examples.py", line 35, in <module>\
+    from sklearn import linear_model, datasets\
+  File "/Users/nrecord/anaconda/lib/python3.5/site-packages/sklearn/__init__.py", line 64, in <module>\
+    from .base import clone\
+  File "/Users/nrecord/anaconda/lib/python3.5/site-packages/sklearn/base.py", line 11, in <module>\
+    from scipy import sparse\
+  File "/Users/nrecord/anaconda/lib/python3.5/site-packages/scipy/sparse/__init__.py", line 229, in <module>\
+    from .csr import *\
+  File "/Users/nrecord/anaconda/lib/python3.5/site-packages/scipy/sparse/csr.py", line 15, in <module>\
+    from ._sparsetools import csr_tocsc, csr_tobsr, csr_count_blocks, \\\
+ImportError: numpy.core.multiarray failed to import\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \cb1 \CocoaLigature1 \
+\
+\
+\
+}
