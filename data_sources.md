@@ -19,7 +19,7 @@
 - Dark Data
 
 - Citizen Science
-  + FU database
+  + [FU database](https://www.eyeonwater.org/) manual download only
   + Secchi project
   + Land Trusts
   
