@@ -20,7 +20,7 @@
 
 - Citizen Science
   + [FU database](https://www.eyeonwater.org/) manual download only
-  + Secchi project
+  + [Secchi project](http://www.secchidisk.org/) requires registration and suggested donation
   + Land Trusts
   
 - BCO-DMO
