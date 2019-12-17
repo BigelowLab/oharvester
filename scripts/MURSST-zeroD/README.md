@@ -22,4 +22,8 @@ The data will be written to the file "bigelow.csv" (or whatever you name it).
 
 *Note: if you don't want to write a file, but rather load the data into R, then omit the `outfile` argument*
 
+---
 
+Developer notes:
+ - This is quick-and-dirty
+ - There is no error checking, so use at your own risk
