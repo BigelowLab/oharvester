@@ -14,8 +14,7 @@ and (if you want) write it to a file
 
 4) Extract the data at the location of your choice:
 
-```sst <- MURtimeseries(latitude = 43.862131, longitude = -69.573120, starttime = '2018-01-01', 
-endtime = '2018-01-31', outfile = 'bigelow.csv')```
+```sst <- MURtimeseries(latitude = 43.862131, longitude = -69.573120, starttime = '2018-01-01', endtime = '2018-01-31', outfile = 'bigelow.csv')```
 
 This will get you the daily sea surface temperature data at the specified latitude and longitude, 
 and between the specified start and end dates. 
