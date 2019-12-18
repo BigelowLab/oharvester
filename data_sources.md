@@ -3,25 +3,28 @@
 - [USGS](https://www.usgs.gov/products/data-and-tools/apis)
 
 - Satellite
-  + SST-many
-  + OBPG
-  + LandSat
-  + OCCI (GlobColour)
+    + SST-many
+    + [OBPG](https://oceancolor.gsfc.nasa.gov/)
+    + [LandSat](https://www.usgs.gov/land-resources/nli/landsat)
+       - [getSpatialData](https://github.com/16EAGLE/getSpatialData) ?
+    + [OCCI](https://www.oceancolour.org/) (GlobColour)
 
-- ERSST
+- [ERSST](https://www.esrl.noaa.gov/psd/data/gridded/data.noaa.ersst.v5.html)
+    + [opendap-monthly](https://www.esrl.noaa.gov/psd/thredds/dodsC/Datasets/noaa.ersst.v5/sst.mnmean.nc)
+    + [opendap-ltm](https://www.esrl.noaa.gov/psd/thredds/dodsC/Datasets/noaa.ersst.v5/sst.mon.ltm.1981-2010.nc)
 
-- OISST
+- [OISST](https://www.ncdc.noaa.gov/oisst)
 
 - Buoys
-  + NERACOOS
-  + LOBO
+    + NERACOOS
+    + LOBO
   
 - Dark Data
 
 - Citizen Science
-  + [FU database](https://www.eyeonwater.org/) manual download only
-  + [Secchi project](http://www.secchidisk.org/) requires registration and suggested donation
-  + [Land Trusts](https://mcoascience.org/resources/)
+    + [FU database](https://www.eyeonwater.org/) manual download only
+    + [Secchi project](http://www.secchidisk.org/) requires registration and suggested donation
+    + [Land Trusts](https://mcoascience.org/resources/)
   
 - BCO-DMO
 
@@ -30,6 +33,6 @@
 - Bigelow Internal
 
 - Models (many)
-  + NAM weather forecasts
-  + FVCOM
-  + etc
+    + NAM weather forecasts
+    + FVCOM
+    + etc
