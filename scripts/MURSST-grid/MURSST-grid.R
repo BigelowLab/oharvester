@@ -108,28 +108,24 @@ MUR_fetch <- function(x,
 #' nearest whole pixel.
 #'
 #' @seealso https://podaac.jpl.nasa.gov/dataset/MUR-JPL-L4-GLOB-v4.1
-#' @param latitude numeric, two element vector of [south, north] boundaries, positive north
-#' @param longitude numeric, two element vector of [west, east] boundaries, positive east
-#' @param starttime character in YYYY-mm-dd format or Date day, inclusive start date
-#' @param endtime character in YYYY-mm-dd format or Date day, inclusive end date
+#' @param bb numeric, four element vector of [west, east, south, north] boundaries
+#'        with south and west negative
+#' @param daterange character in YYYY-mm-dd format or Date day, inclusive start/end date
 #' @param outpath character or NA, optional output path to save rasters in GeoTiff format
 #' @param ... other arguments passed to MUR_fetch
 #' @return raster stack
-MURgrid <- function(latitude =  c(39, 46),
-                    longitude = c(-72, -63),
-                    startdate = '2018-01-01',
-                    enddate = '2018-01-04',
+MURgrid <- function(bb= c(-72, -63, 39, 46),
+                    daterange = c('2018-01-01','2018-01-04'),
                     varname = 'analysed_sst',
                     outpath = NA,
                     ...){
 
-  if (!inherits(startdate, "Date")) startdate <- as.Date(startdate[1])
-  if (!inherits(enddate, "Date")) enddate <- as.Date(enddate[1])
-  dates <- seq.Date(from = startdate[1], to = enddate[1], by = 'day')
+  if (!inherits(daterange, "Date")) daterange <- as.Date(daterange[1])
+  dates <- seq.Date(from = daterange[1], to = daterange[2], by = 'day')
   mur <- as.list(MUR_nc_url(dates))
   mur[[1]] <- ncdf4::nc_open(mur[[1]])
   nav <- mur_nc_nav(mur[[1]],
-                    bb = c( sort(longitude[1:2]) , sort(latitude[1:2]) ),
+                    bb = bb,
                     varname = varname)
 
   S <- raster::stack(lapply(mur, MUR_fetch, nav, outpath = outpath, ...))

@@ -19,10 +19,9 @@ source('MURsst-grid.R')
 4) Extract the data, save the data to a location of your choice, and plot.
 
 ```
-sst <- MURgrid(latitude =  c(39, 46),
+sst <- MUR_get_grid(bb =  c(-72, -63, 39, 46),
                     longitude = c(-72, -63),
-                    startdate = '2018-01-01',
-                    enddate = '2018-01-04',
+                    daterange = c('2018-01-01', '2018-01-04'),
                     outpath = "./my_mur_sst")
 plot(sst)
 ```
