@@ -66,7 +66,8 @@ OISST_nc_url <- function(dates,
 #' @param x ncdfd4 object
 #' @param bb numeric, 4 element requested bounding box [west, east, south, north]
 #' @param res numeric, 2 element resolution [res_x,res_y]
-#' @param varname character the name of the variable
+#' @param varname character the name of the variable.
+#'        Options include "ice", "err", "anom", and "sst" (default)
 #' @return list with
 #' \itemize{
 #'   \item{bb the requested bounding box}
@@ -145,14 +146,16 @@ OISST_fetch <- function(x,
 #'
 #' @seealso https://www.ncdc.noaa.gov/oisst
 #' @param latitude numeric, two element vector of [south, north] boundaries, positive north
-#' @param longitude numeric, two element vector of [west, east] boundaries, positive east
+#' @param bb numeric, 4 element vector of [west, east, south, north] boundaries,
+#'        where west and south are negative.
 #' @param type character, either "AVHRR" (default) or "AVHRR+AMSR"
+#' @param varname character the name of the variable.
+#'        Options include "ice", "err", "anom", and "sst" (default)
 #' @param daterange 2 element character in YYYY-mm-dd format or Date day, inclusive start and end dates
 #' @param outpath character or NA, optional output path to save rasters in GeoTiff format
-#' @param ... other arguments passed to OISST_fetch
+#' @param ... other arguments passed to OISST_fetch.
 #' @return raster stack
-OISST_get_grid <- function(latitude =  c(39, 46),
-                    longitude = c(-72, -63),
+OISST_get_grid <- function(bb = c(-72, -63, 39, 46),
                     type = c("AVHRR", "AVHRR-AMSR")[1],
                     daterange = c('2018-01-01', '2018-01-04'),
                     varname = 'sst',
@@ -163,8 +166,7 @@ OISST_get_grid <- function(latitude =  c(39, 46),
   oi <- as.list(OISST_nc_url(dates))
   oi[[1]] <- ncdf4::nc_open(oi[[1]])
   nav <- OISST_nc_nav(oi[[1]],
-                    bb = to360BB( c( sort(longitude[1:2]) ,
-                                     sort(latitude[1:2]) ) ),
+                    bb = to360BB(bb),
                     varname = varname)
 
   S <- raster::stack(lapply(oi, OISST_fetch, nav, outpath = outpath, ...))
