@@ -13,7 +13,7 @@ install.packages(c('ncdf4', 'raster'))
 3) Source the file:
 
 ```
-source('MURsst-zeroD.R')
+source('MURsst-grid.R')
 ```
 
 4) Extract the data, save the data to a location of your choice, and plot.
