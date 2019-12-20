@@ -15,6 +15,9 @@
 
 - [OISST](https://www.ncdc.noaa.gov/oisst)
 
+- [Blended Sea Winds](https://www.ncdc.noaa.gov/data-access/marineocean-data/blended-global/blended-sea-winds
+)  *discontinued 2018-10-09 but expected to resume*
+
 - Buoys
     + NERACOOS
     + LOBO

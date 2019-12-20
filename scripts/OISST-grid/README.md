@@ -1,6 +1,6 @@
 # OISST Optimally Interpolated Sea Surface Temperature gridded time series
 
-This tool will harvest a gridded sea surface temperature time series from [OISST](https://www.ncdc.noaa.gov/oissthttps://www.ncdc.noaa.gov/oisst) and (if you want) write the results to files. 
+This tool will harvest a gridded sea surface temperature time series from [OISST](https://www.ncdc.noaa.gov/oisst) and (if you want) write the results to files. 
 
 Keep in mind that you have options to select such as `type` ("AVHRR" or "AVHRR-AMSR"), `daterange`, `varname` ("sst", "anom", "ice", etc), as well as others. Please consult the script file for details.
 

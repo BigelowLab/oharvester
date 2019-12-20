@@ -120,7 +120,7 @@ MURgrid <- function(bb= c(-72, -63, 39, 46),
                     outpath = NA,
                     ...){
 
-  if (!inherits(daterange, "Date")) daterange <- as.Date(daterange[1])
+  if (!inherits(daterange, "Date")) daterange <- as.Date(daterange)
   dates <- seq.Date(from = daterange[1], to = daterange[2], by = 'day')
   mur <- as.list(MUR_nc_url(dates))
   mur[[1]] <- ncdf4::nc_open(mur[[1]])
