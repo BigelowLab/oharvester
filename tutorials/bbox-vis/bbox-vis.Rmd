@@ -2,7 +2,9 @@
 title: "bbox-vis"
 author: "btupper"
 date: "12/23/2019"
-output: html_document
+output: 
+  html_document:
+    keep_md: yes
 ---
 
 ```{r setup, include=FALSE, echo = FALSE}
