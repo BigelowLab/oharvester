@@ -227,7 +227,3 @@ And merge.  Note that we plot the map, add the raster, and then replot the map. 
 newR <- raster::merge(RR[[1]], RR[[2]])
 draw_map(database = "world", R = newR, bb = bb2_180)
 ```
-
-
-
-
