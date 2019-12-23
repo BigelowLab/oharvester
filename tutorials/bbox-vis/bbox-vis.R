@@ -1,6 +1,7 @@
 library(maps)
 library(sf)
 library(dplyr)
+library(raster)
 
 #' Convert bounding box [0,360] longitudes to [-180, 180]
 #'
@@ -54,15 +55,15 @@ bb_to_polygon <- function(bb = c(-170,-10,-60,60),
                           crs = "+init=epsg:4326"){
   if (!is.list(bb)) bb <- list(bb1 = bb)
   pp <- lapply(seq_len(length(bb)),
-      function(i){
-        x <- bb[[i]]
-        sf::st_polygon(x = list(cbind(x[c(1,2,2,1,1)], 
-                                      x[c(3,3,4,4,3)]))) %>%
-        sf::st_sfc(crs = crs) %>%
-        sf::st_sf() %>%
-        dplyr::mutate(ID = i)
-      })
-   do.call(rbind, pp)
+               function(i){
+                 x <- bb[[i]]
+                 sf::st_polygon(x = list(cbind(x[c(1,2,2,1,1)], 
+                                               x[c(3,3,4,4,3)]))) %>%
+                   sf::st_sfc(crs = crs) %>%
+                   sf::st_sf() %>%
+                   dplyr::mutate(ID = i)
+               })
+  do.call(rbind, pp)
 }  
 
 
@@ -96,14 +97,23 @@ bb_straddles <- function(bb = c(-170,50,-60,60),
   bb[1] < at && bb[2] > at
 }
 
-
+#' Draw a world map with optional raster and polygon overlays
+#'
+#' @param database character, either 'world' [-180,180] or 'world2' [0,360]
+#' @param base_col character, color of base map vectors
+#' @param R raster or NA, if raster then add to plot
+#' @param bb list or numeric, bounding box or a list of bounding boxes
+#' @param main character, optional title
+#' @param lwd numeric, optipnal line weight for polygon edges
+#' @param ofile charcater, optional PNG filename
 draw_map <- function(database = 'world', 
                      base_col = 'gray50',
+                     R = NA, 
                      bb = NULL, 
                      main = NA,
                      lwd = 2,
-                    ofile = NA){
- 
+                     ofile = NA){
+  
   if (!is.na(ofile)) png(ofile, width = 400, height = 200)
   xlim <- switch(database[1],
                  'world' = c(-180, 180),
@@ -113,63 +123,20 @@ draw_map <- function(database = 'world',
       col = base_col,
       mar = c(0.1,0.1,0.2,0.1))
   box(col = 'black')
+  if (!is.null(R)){
+    plot(R, add = TRUE, legend = FALSE)
+    map(database = database,col = base_col)
+  }
   if (!is.na(main)) title(main)
   abline(v = mean(xlim), lty = 'dotted')
   if (!is.null(bb)){
     pp <- bb_to_polygon(bb)
     plot(st_geometry(pp), 
-         col = sf.colors(n = nrow(pp), alpha = 0.5), 
+         col = sf.colors(n = nrow(pp), alpha = 0.5, categorical = TRUE), 
          alpha = 0.7,
-         border = sf::sf.colors(n = nrow(pp), alpha = 1), 
+         border = "black", 
          lwd = 3,
          add = TRUE)
   }
   if (!is.na(ofile)) dev.off()
 }
-
-
-draw_raster <- function(r,
-                     base_col = 'gray50',
-                     bb = NULL, 
-                     main = NA,
-                     lwd = 2,
-                     ofile = NA){
-  
-  if (!is.na(ofile)) png(ofile, width = 400, height = 200)
-  plot(r)
-  if (raster::xmax(r) > 181){
-    database = "world2"
-    xlim = c(0,360)
-  } else {
-    database = "world"
-    xlim = c(-180, 180)
-  }
-  map(database = database,
-      col = base_col,
-      add = TRUE)
-  if (!is.na(main)) title(main)
-  abline(v = mean(xlim), lty = 'dotted')
-  if (!is.null(bb)){
-    pp <- bb_to_polygon(bb)
-    cols <- 
-    plot(st_geometry(pp), 
-         col = sf::sf.colors(n = nrow(pp), alpha = 0.5), 
-         alpha = 0.7,
-         border = sf::sf.colors(n = nrow(pp), alpha = 1), 
-         lwd = 3,
-         add = TRUE)
-  }
-  if (!is.na(ofile)) dev.off()
-}
-
-
-
-
-bb1_180 <- c(-170, -10, -45, 45)
-bb1_360 <- to360BB(bb1_180)
-draw_map(database = "world",  bb = bb1_180, ofile = "world-bb1.png")
-draw_map(database = "world2", bb = bb1_360, ofile = "world2-bb1.png")
-
-bb2_180 <- c(-170, 50, -45, 45)
-bb2s_180 <- bb_split(bb2_180)
-bb2_360 <- sapply(bb2s_180, to360BB, simplify = FALSE)

@@ -106,13 +106,22 @@ bb_straddles <- function(bb = c(-170,50,-60,60),
   bb[1] < at && bb[2] > at
 }
 
-
+#' Draw a world map with optional raster and polygon overlays
+#'
+#' @param database character, either 'world' [-180,180] or 'world2' [0,360]
+#' @param base_col character, color of base map vectors
+#' @param R raster or NA, if raster then add to plot
+#' @param bb list or numeric, bounding box or a list of bounding boxes
+#' @param main character, optional title
+#' @param lwd numeric, optipnal line weight for polygon edges
+#' @param ofile charcater, optional PNG filename
 draw_map <- function(database = 'world', 
                      base_col = 'gray50',
+                     R = NULL, 
                      bb = NULL, 
                      main = NA,
                      lwd = 2,
-                    ofile = NA){
+                     ofile = NA){
  
   if (!is.na(ofile)) png(ofile, width = 400, height = 200)
   xlim <- switch(database[1],
@@ -123,6 +132,10 @@ draw_map <- function(database = 'world',
       col = base_col,
       mar = c(0.1,0.1,0.2,0.1))
   box(col = 'black')
+  if (!is.null(R)){
+    plot(R, add = TRUE, legend = FALSE)
+    map(database = database,col = base_col, add = TRUE)
+  }
   if (!is.na(main)) title(main)
   abline(v = mean(xlim), lty = 'dotted')
   if (!is.null(bb)){
@@ -136,45 +149,13 @@ draw_map <- function(database = 'world',
   }
   if (!is.na(ofile)) dev.off()
 }
-
-
-draw_raster <- function(r,
-                     base_col = 'gray50',
-                     bb = NULL, 
-                     main = NA,
-                     lwd = 2,
-                     ofile = NA){
-  
-  if (!is.na(ofile)) png(ofile, width = 400, height = 200)
-  if (raster::xmax(r) > 181){
-    database = "world2"
-    xlim = c(0,360)
-  } else {
-    database = "world"
-    xlim = c(-180, 180)
-  }
-  plot(r, xlim = xlim, legend = FALSE)
-  map(database = database,
-      col = base_col,
-      add = TRUE)
-  if (!is.na(main)) title(main)
-  abline(v = mean(xlim), lty = 'dotted')
-  if (!is.null(bb)){
-    pp <- bb_to_polygon(bb)
-    cols <- 
-    plot(st_geometry(pp), 
-         col = sf::sf.colors(n = nrow(pp), alpha = 0.5, categorical	= TRUE), 
-         alpha = 0.7,
-         border = "black", 
-         lwd = 3,
-         add = TRUE)
-  }
-  if (!is.na(ofile)) dev.off()
-}
 ```
 
+### Functions
 
-# Navigating gridded data with map wrap 
+Functions used in this document can be found on [github](https://github.com/BigelowLab/oharvester/blob/master/tutorials/bbox-vis/bbox-vis.R).
+
+### Navigating gridded data with map wrap 
 
 We usual work with world maps presented with the Greenwich meridian in the middle - that leaves the Pacifc Ocean to wrap around the edges of the map. The range of longitudes covers [-180,180]. Many gridded datasets are served like that, such as [Ocean Biology datasets](https://oceancolor.gsfc.nasa.gov/). Other gridded datasets are served with longitude ranging [0,360].  [Blended Sea Winds](https://www.ncdc.noaa.gov/data-access/marineocean-data/blended-global/blended-sea-winds) is an example. The [-180,180] and [0,360] maps are just wrapped version of each other.
 
@@ -215,7 +196,7 @@ First let's get some data.
 ```{r download, fig.align = "center"}
 R <- raster::brick(system.file("external/rlogo.grd", package="raster"))[[1]]
 raster::extent(R) <- c(0, 360, -90, 90)
-draw_raster(R, bb = bb2_360)
+draw_map(database = "world2", R = R, bb = bb2_360)
 ```
 
 Now extract each piece.
@@ -244,10 +225,7 @@ And merge.  Note that we plot the map, add the raster, and then replot the map. 
 
 ```{r merge, fig.align = TRUE}
 newR <- raster::merge(RR[[1]], RR[[2]])
-map(database = "world", col = "grey50")
-box(col = 'black')
-plot(newR, add = TRUE, legend = FALSE)
-map(database = "world", col = "grey50", add = TRUE)
+draw_map(database = "world", R = newR, bb = bb2_180)
 ```
 
 
