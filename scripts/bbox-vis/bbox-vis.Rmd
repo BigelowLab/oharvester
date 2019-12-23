@@ -1,0 +1,255 @@
+---
+title: "bbox-vis"
+author: "btupper"
+date: "12/23/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE, echo = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(maps)
+library(sf)
+library(dplyr)
+library(raster)
+
+#' Convert bounding box [0,360] longitudes to [-180, 180]
+#'
+#' Bounding boxes are 4 element vectors of [west, east, south, north]
+#'
+#' @export
+#' @param x numeric bounding box vector, no check is done for being withing 0,360 range
+#' @return numeric bounding box vector
+to180BB <- function(x) {
+  x[1:2] <- to180(x[1:2])
+  if (identical(x[1], 180)) x[1] <- -180
+  x}
+
+#' Convert [-180,180] bounding box longitudes to [0,360]
+#'
+#' Bounding boxes are 4 element vectors of [west, east, south, north]
+#'
+#' @export
+#' @param x numeric bounding box vector, no check is done for being withing 0,360 range
+#' @return numeric bounding box vector
+to360BB <- function(x) {
+  x[1:2] <- to360(x[1:2])
+  if (identical(x[1], 360)) x[1] <- 0   # western edge
+  if (identical(x[2], 0)) x[2] <- 360   # eastern edge
+  
+  x
+}
+
+#' Convert [0,360] longitudes to [-180, 180]
+#'
+#' @export
+#' @param x numeric vector, no check is done for being withing [0, 360] range
+#' @return numeric vector
+to180 <- function(x) {((x + 180) %% 360) - 180}
+
+#' Convert [-180,180] longitudes to [0, 360]
+#'
+#' @export
+#' @param x numeric vector, no check is done for being within [0,3 60] range
+#' @return numeric vector
+to360 <- function(x) {x %% 360}
+
+
+#' Convert a bounding box to a sf of type GEOMETRY
+#' 
+#' @param bb numeric, 4 element bouding box or a list with
+#'        multiple bb vectors
+#' @param crs character, coordinate reference
+#' @return sf of geometry type POLYGON
+bb_to_polygon <- function(bb = c(-170,-10,-60,60),
+                          crs = "+init=epsg:4326"){
+  if (!is.list(bb)) bb <- list(bb1 = bb)
+  pp <- lapply(seq_len(length(bb)),
+      function(i){
+        x <- bb[[i]]
+        sf::st_polygon(x = list(cbind(x[c(1,2,2,1,1)], 
+                                      x[c(3,3,4,4,3)]))) %>%
+        sf::st_sfc(crs = crs) %>%
+        sf::st_sf() %>%
+        dplyr::mutate(ID = i)
+      })
+   do.call(rbind, pp)
+}  
+
+
+#' Split a bounding box into two at \code{at}
+#' 
+#' @param bb numeric, 4 element bouding box
+#' @param at numeric, longitude to split around
+#' @return list of one or more bounding box vectors
+bb_split <- function(bb = c(-170,50,-60,60),
+                     at = 0){
+  if (bb[1] < at && bb[2] > at){
+    x <- list(
+      bb1 = c(bb[1], 0, bb[3:4]),
+      bb2 = c(0, bb[2:4])
+    )
+  } else {
+    x <- list(
+      bb1 = bb
+    )
+  }
+  x
+}
+
+#' Test if a blunding box straddles a longitude
+#' 
+#' @param bb numeric, 4 element bouding box
+#' @param at numeric, longitude to split around
+#' @return logical
+bb_straddles <- function(bb = c(-170,50,-60,60),
+                         at = 0){
+  bb[1] < at && bb[2] > at
+}
+
+
+draw_map <- function(database = 'world', 
+                     base_col = 'gray50',
+                     bb = NULL, 
+                     main = NA,
+                     lwd = 2,
+                    ofile = NA){
+ 
+  if (!is.na(ofile)) png(ofile, width = 400, height = 200)
+  xlim <- switch(database[1],
+                 'world' = c(-180, 180),
+                 "world2" = c(0, 360))
+  map(database = database,
+      xlim = xlim,
+      col = base_col,
+      mar = c(0.1,0.1,0.2,0.1))
+  box(col = 'black')
+  if (!is.na(main)) title(main)
+  abline(v = mean(xlim), lty = 'dotted')
+  if (!is.null(bb)){
+    pp <- bb_to_polygon(bb)
+    plot(st_geometry(pp), 
+         col = sf.colors(n = nrow(pp), alpha = 0.5, categorical = TRUE), 
+         alpha = 0.7,
+         border = "black", 
+         lwd = 3,
+         add = TRUE)
+  }
+  if (!is.na(ofile)) dev.off()
+}
+
+
+draw_raster <- function(r,
+                     base_col = 'gray50',
+                     bb = NULL, 
+                     main = NA,
+                     lwd = 2,
+                     ofile = NA){
+  
+  if (!is.na(ofile)) png(ofile, width = 400, height = 200)
+  if (raster::xmax(r) > 181){
+    database = "world2"
+    xlim = c(0,360)
+  } else {
+    database = "world"
+    xlim = c(-180, 180)
+  }
+  plot(r, xlim = xlim, legend = FALSE)
+  map(database = database,
+      col = base_col,
+      add = TRUE)
+  if (!is.na(main)) title(main)
+  abline(v = mean(xlim), lty = 'dotted')
+  if (!is.null(bb)){
+    pp <- bb_to_polygon(bb)
+    cols <- 
+    plot(st_geometry(pp), 
+         col = sf::sf.colors(n = nrow(pp), alpha = 0.5, categorical	= TRUE), 
+         alpha = 0.7,
+         border = "black", 
+         lwd = 3,
+         add = TRUE)
+  }
+  if (!is.na(ofile)) dev.off()
+}
+```
+
+
+# Navigating gridded data with map wrap 
+
+We usual work with world maps presented with the Greenwich meridian in the middle - that leaves the Pacifc Ocean to wrap around the edges of the map. The range of longitudes covers [-180,180]. Many gridded datasets are served like that, such as [Ocean Biology datasets](https://oceancolor.gsfc.nasa.gov/). Other gridded datasets are served with longitude ranging [0,360].  [Blended Sea Winds](https://www.ncdc.noaa.gov/data-access/marineocean-data/blended-global/blended-sea-winds) is an example. The [-180,180] and [0,360] maps are just wrapped version of each other.
+
+Typically, we specify a bounding box with [east, west, south, north] order.  As long as the bounding box uses the same wrapping paradigm there is no trick to extracting subsets.  Here is a [-180,180] map with a typical bounding box. 
+
+```{r world-bb1, fig.align= "center"}
+bb1_180 <- c(-170, -10, -45, 45)
+draw_map(database = "world", bb = bb1_180)
+```
+
+To extract the same bounding box from a [0,360] data product requires that we first transform the bounding box from [-180,180] to [0,360]. Then we can see that the bounding box translates to the correct region of the wrapped map.
+
+```{r xform-bb1, fig.align = "center"}
+(bb1_360 <- to360BB(bb1_180))
+draw_map(database= "world2", bb = bb1_360)
+```
+
+### The pesky bounding box
+
+A [-180,180] bounding box that crosses the origin presents a pesky challenge because it gets 'broken' by the wrap.  To manage that we split the bounding box into two, one one each side of the wrap point, and then translate each of those.
+
+```{r world-bb2, fig.align = "center"}
+bb2_180 <- c(-170, 50, -45,45)
+(bb2s_180 <- bb_split(bb2_180, at = 0))
+draw_map(database= "world", bb = bb2s_180)
+(bb2_360 <- sapply(bb2s_180, to360BB, simplify = FALSE))
+draw_map(database= "world2", bb = bb2_360)
+```
+
+Summary... to retrieve a [-180-,180] bounding box that straddles a wrap longitude, just split the bounding box and then translate each of the two boxes to [0,360].  Then extract each.  
+
+### Raster example
+
+Below is an example that uses the [raster](https://cran.r-project.org/package=raster) to handle the grid.
+
+First let's get some data.
+
+```{r download, fig.align = "center"}
+R <- raster::brick(system.file("external/rlogo.grd", package="raster"))[[1]]
+raster::extent(R) <- c(0, 360, -90, 90)
+draw_raster(R, bb = bb2_360)
+```
+
+Now extract each piece.
+
+```{r extract, fig.aliong = "center"}
+RR <- lapply(bb2_360,
+      function(bb){
+        raster::crop(R, bb)
+      })
+
+```
+
+Retrieve the extent for each, and transform back to [-180, 180]. Then assign these as new extenbts for each raster.
+
+```{r new-extent}
+RR <- lapply(RR,
+  function(R){
+    e360 <- as.vector(raster::extent(R))
+    e180 <- to180BB(e360)
+    raster::extent(R) <- e180
+    R
+  })
+```
+
+And merge.  Note that we plot the map, add the raster, and then replot the map. Also note that our example map has pretty coarse resolution, so the actual cropped boundaries are pretty different than the requested ones.  
+
+```{r merge, fig.align = TRUE}
+newR <- raster::merge(RR[[1]], RR[[2]])
+map(database = "world", col = "grey50")
+box(col = 'black')
+plot(newR, add = TRUE, legend = FALSE)
+map(database = "world", col = "grey50", add = TRUE)
+```
+
+
+
+
