@@ -1,5 +1,5 @@
 ---
-title: "bbox-vis"
+title: "README"
 author: "btupper"
 date: "12/23/2019"
 output: 
@@ -25,7 +25,7 @@ bb1_180 <- c(-170, -10, -45, 45)
 draw_map(database = "world", bb = bb1_180)
 ```
 
-<img src="bbox-vis_files/figure-html/world-bb1-1.png" style="display: block; margin: auto;" />
+<img src="README_files/figure-html/world-bb1-1.png" style="display: block; margin: auto;" />
 
 To extract the same bounding box from a [0,360] data product requires that we first transform the bounding box from [-180,180] to [0,360]. Then we can see that the bounding box translates to the correct region of the wrapped map.
 
@@ -42,7 +42,7 @@ To extract the same bounding box from a [0,360] data product requires that we fi
 draw_map(database= "world2", bb = bb1_360)
 ```
 
-<img src="bbox-vis_files/figure-html/xform-bb1-1.png" style="display: block; margin: auto;" />
+<img src="README_files/figure-html/xform-bb1-1.png" style="display: block; margin: auto;" />
 
 ### The pesky bounding box
 
@@ -66,7 +66,7 @@ bb2_180 <- c(-170, 50, -45,45)
 draw_map(database= "world", bb = bb2s_180)
 ```
 
-<img src="bbox-vis_files/figure-html/world-bb2-1.png" style="display: block; margin: auto;" />
+<img src="README_files/figure-html/world-bb2-1.png" style="display: block; margin: auto;" />
 
 ```r
 (bb2_360 <- sapply(bb2s_180, to360BB, simplify = FALSE))
@@ -84,7 +84,7 @@ draw_map(database= "world", bb = bb2s_180)
 draw_map(database= "world2", bb = bb2_360)
 ```
 
-<img src="bbox-vis_files/figure-html/world-bb2-2.png" style="display: block; margin: auto;" />
+<img src="README_files/figure-html/world-bb2-2.png" style="display: block; margin: auto;" />
 
 Summary... to retrieve a [-180-,180] bounding box that straddles a wrap longitude, just split the bounding box and then translate each of the two boxes to [0,360].  Then extract each.  
 
@@ -101,7 +101,7 @@ raster::extent(R) <- c(0, 360, -90, 90)
 draw_map(database = "world2", R = R, bb = bb2_360)
 ```
 
-<img src="bbox-vis_files/figure-html/download-1.png" style="display: block; margin: auto;" />
+<img src="README_files/figure-html/download-1.png" style="display: block; margin: auto;" />
 
 Now extract each piece.
 
@@ -134,4 +134,4 @@ newR <- raster::merge(RR[[1]], RR[[2]])
 draw_map(database = "world", R = newR, bb = bb2_180)
 ```
 
-<img src="bbox-vis_files/figure-html/merge-1.png" style="display: block; margin: auto auto auto 0;" />
+<img src="README_files/figure-html/merge-1.png" style="display: block; margin: auto auto auto 0;" />
