@@ -41,27 +41,26 @@ bb <-  c(-72, -63, 39, 46)
 
 ### Open and extract lon/lat
 
-Let's open the file and extract the longitude and latitude locations which are stored in the `dim` section of the resource.  Note that that opening results in minimal transfer of data - just enough to completely define the contents of the file.  This is a great feature that removes the need to downlaod the entore file just to extract a small piece of it.
+Let's open the file and extract the longitude and latitude locations which are stored in the `dim` section of the resource.  Note that opening procerss results in minimal transfer of data - just enough to completely define the contents of the file.  This is a great feature that removes the need to downlaod the entore file just to extract a small piece of it.
 
 BTW, we have [printed](20180101090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1.txt) the `ncdf4` object we create for your convenience - it's just like using [`ncdump -c`](https://www.unidata.ucar.edu/software/netcdf/workshops/2011/utilities/NcdumpExamples.html).
 
 ```{r open}
 x <- ncdf4::nc_open(mur_url)
 lon <- x$dim$lon$vals
-head(lon)
-tail(lon)
+c(head(lon), tail(lon))
+
 lat <- x$dim$lat$vals
-head(lat)
-tail(lat)
+c(head(lat), tail(lat))
 ```
 
 **Note** that actual values of any `dim` are retrieved and stored in the `ncdf4`  object, `x`, when you call `nc_open`, so by extracting the values we are making a copy; we do so for clarity. This maybe something to avoid when making a 'real' processing script.
 
-So the layout of of the grid cells are west-to-east [-179.99 - 180.00], and south-to-north [-89.99 - 89.99].  Keep in mind that these define the grid cell centers.  
+So the layout of of the grid cells are west-to-east `[-179.99 - 180.00]`, and south-to-north `[-89.99 - 89.99]`.  Keep in mind that these define the grid cell centers.  
 
 ### Match grid lon/lat to bounding box
 
-The bounding box we defined is really a requested bounding box, the grid cells we return will be the closest matching that full encapsulate the bounding box coordinates. Determining which grid cells match the requested bounding box involves padding the bounding box by one-half of grid resolution.  Padding prevents us from accidentally trimming the box.  Then we find the lon/lats that are the closest to the padded bounding box coordinates.
+The bounding box we defined is really a requested bounding box, the grid cells we return will be the closest matching that fully encapsulate the bounding box coordinates. Determining which grid cells match the requested bounding box involves padding the bounding box by one-half of grid resolution.  Padding prevents us from accidentally trimming the box.  Then we find the lon/lats that are the closest to the padded bounding box coordinates.
 
 ```{r find-bb}
 half <- res/2                                            # half-res

@@ -9,7 +9,7 @@ output:
 
 
 
-## NetCDF to raster pipeline
+## NetCDF to raster
 
 This tutorial is about extracting subsets of gridded data served by NetCDF files (including [OPeNDAP](https://www.opendap.org/)). We would be remiss if we didn't point out there are other ways to skins the cat - including reading data from local files directly with the [raster](https://CRAN.R-project.org/package=raster) package or using [stars](https://CRAN.R-project.org/package=stars).  We probably should all be migrating to the latter as it nestles smartly and beautifully with [sf](https://CRAN.R-project.org/package=sf) and the [tidyverse](https://CRAN.R-project.org/package=tidyverse).  
 
@@ -40,7 +40,7 @@ bb <-  c(-72, -63, 39, 46)
 
 ### Open and extract lon/lat
 
-Let's open the file and extract the longitude and latitude locations which are stored in the `dim` section of the resource.  Note that that opening results in minimal transfer of data - just enough to completely define the contents of the file.  This is a great feature that removes the need to downlaod the entore file just to extract a small piece of it.
+Let's open the file and extract the longitude and latitude locations which are stored in the `dim` section of the resource.  Note that opening procerss results in minimal transfer of data - just enough to completely define the contents of the file.  This is a great feature that removes the need to downlaod the entore file just to extract a small piece of it.
 
 BTW, we have [printed](20180101090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1.txt) the `ncdf4` object we create for your convenience - it's just like using [`ncdump -c`](https://www.unidata.ucar.edu/software/netcdf/workshops/2011/utilities/NcdumpExamples.html).
 
@@ -48,45 +48,31 @@ BTW, we have [printed](20180101090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1
 ```r
 x <- ncdf4::nc_open(mur_url)
 lon <- x$dim$lon$vals
-head(lon)
+c(head(lon), tail(lon))
 ```
 
 ```
-## [1] -179.99 -179.98 -179.97 -179.96 -179.95 -179.94
-```
-
-```r
-tail(lon)
-```
-
-```
-## [1] 179.95 179.96 179.97 179.98 179.99 180.00
+##  [1] -179.99 -179.98 -179.97 -179.96 -179.95 -179.94  179.95  179.96
+##  [9]  179.97  179.98  179.99  180.00
 ```
 
 ```r
 lat <- x$dim$lat$vals
-head(lat)
+c(head(lat), tail(lat))
 ```
 
 ```
-## [1] -89.99 -89.98 -89.97 -89.96 -89.95 -89.94
-```
-
-```r
-tail(lat)
-```
-
-```
-## [1] 89.94 89.95 89.96 89.97 89.98 89.99
+##  [1] -89.99 -89.98 -89.97 -89.96 -89.95 -89.94  89.94  89.95  89.96  89.97
+## [11]  89.98  89.99
 ```
 
 **Note** that actual values of any `dim` are retrieved and stored in the `ncdf4`  object, `x`, when you call `nc_open`, so by extracting the values we are making a copy; we do so for clarity. This maybe something to avoid when making a 'real' processing script.
 
-So the layout of of the grid cells are west-to-east [-179.99 - 180.00], and south-to-north [-89.99 - 89.99].  Keep in mind that these define the grid cell centers.  
+So the layout of of the grid cells are west-to-east `[-179.99 - 180.00]`, and south-to-north `[-89.99 - 89.99]`.  Keep in mind that these define the grid cell centers.  
 
 ### Match grid lon/lat to bounding box
 
-The bounding box we defined is really a requested bounding box, the grid cells we return will be the closest matching that full encapsulate the bounding box coordinates. Determining which grid cells match the requested bounding box involves padding the bounding box by one-half of grid resolution.  Padding prevents us from accidentally trimming the box.  Then we find the lon/lats that are the closest to the padded bounding box coordinates.
+The bounding box we defined is really a requested bounding box, the grid cells we return will be the closest matching that fully encapsulate the bounding box coordinates. Determining which grid cells match the requested bounding box involves padding the bounding box by one-half of grid resolution.  Padding prevents us from accidentally trimming the box.  Then we find the lon/lats that are the closest to the padded bounding box coordinates.
 
 
 ```r
