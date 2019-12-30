@@ -11,7 +11,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Harvesting data means storing data, and storing data presents both challenges and opportunities. This tutorial is really a biased sales pitch - to consider how to store downloaded data and how to access it. We present a number of ideas (none are original, but all are time-and-practice tested.)
+Harvesting data means storing data, and storing data presents both challenges and opportunities. This tutorial is really a biased sales pitch - to urge you to consider early in your process how you will store downloaded data and how you will access it. We present a number of ideas (none are original, but all are time-and-practice tested.)
 
 ### Biased sales pitch (time and practice tested)
 
@@ -21,7 +21,7 @@ Harvesting data means storing data, and storing data presents both challenges an
     
   + **Choose your granularity**
   
-    These are often serving data at a granularity that makes for easy searching and storage. [OBPG](https://oceandata.sci.gsfc.nasa.gov/opendap/) provides a very good example where data is stored by `platform/product/year/monthday` (ala `/MODISA/L3SMI/2019/0101`).  It is worth trying to mimic the source data oragnizational paradigm in your own dataset.  Often you may need to alter the paradigm slightly if you are downloading only a specific region - so something like `platform/product/region/year/monthday` (ala `/MODISA/L3SMI/gulfofmaine/2019/0101`) might suite.
+    These data sources are often serving data at a granularity that makes for easy searching and storage. [OBPG](https://oceandata.sci.gsfc.nasa.gov/opendap/) provides a very good example where data is stored by `platform/product/year/monthday` (ala `/MODISA/L3SMI/2019/0101`).  It is worth trying to mimic the source data oragnizational paradigm in your own dataset.  Often you may need to alter the paradigm slightly if you are downloading only a specific region - so something like `platform/product/region/year/monthday` (ala `/MODISA/L3SMI/gulfofmaine/2019/0101`) might suite.
     
   + **Retain original filenames if you can**
 
@@ -41,7 +41,7 @@ Harvesting data means storing data, and storing data presents both challenges an
     
   + **Build software functions to read your files using the database as input**
 
-    Wrap your file reading function with one that takes a filtered database to read one or more data files. 
+    Wrap your file reading function with one that takes a database argument and a path to read one or more data files. 
     
 ### An example 
 
@@ -68,7 +68,7 @@ We present a [dummy example](https://github.com/BigelowLab/oharvester/blob/maste
 
 #### Root path, reading and writing
 
-Defining the root path to the dataset is one of the maddening parts of this technique. The question is where to store this?  Hardwire it into the code (expedient, but could be painful if you ever move your database)?  Store it in an environmental variable or in .Rprofile (then it is tied to individual accounts)?  Force the user to define a global variable in each new R session (portable but annoying)?  There is no easy answer to this, so for now we'll avoid this issue by defining a function the returns the root path.  In the example below, we assume that you have set your R working directory to 
+Defining the root path to the dataset is one of the maddening parts of this technique. The question is where to store this?  Hardwire it into the code (expedient, but could be painful if you ever move your database)?  Store it in an environmental variable or in .Rprofile (then it is tied to individual accounts)?  Force the user to define a global variable in each new R session (portable but annoying)?  There is no easy answer to this, so for now we'll avoid this issue by defining a function the returns the root path.  In the example below, we assume that you have set your R working directory to the root dataset path.
 
 
 ```{r root, echo = TRUE}
