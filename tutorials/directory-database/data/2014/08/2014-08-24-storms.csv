@@ -1,0 +1,5 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Cristobal,2014,08,24,0,22,-72.5,tropical depression,-1,30,1004,0,0
+Cristobal,2014,08,24,6,22.6,-72.9,tropical storm,0,35,1002,69.04679999999999,0
+Cristobal,2014,08,24,12,23.3,-73,tropical storm,0,40,1001,80.5546,0
+Cristobal,2014,08,24,18,24,-73,tropical storm,0,45,1001,80.5546,0

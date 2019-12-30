@@ -1,0 +1,5 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Gonzalo,2014,10,15,0,21.7,-66.2,hurricane,4,115,956,195.6326,40.2773
+Gonzalo,2014,10,15,6,22.5,-67,hurricane,4,115,953,195.6326,46.0312
+Gonzalo,2014,10,15,12,23.1,-67.7,hurricane,4,115,949,218.64819999999997,51.78509999999999
+Gonzalo,2014,10,15,18,23.8,-68.3,hurricane,3,110,953,218.64819999999997,57.538999999999994

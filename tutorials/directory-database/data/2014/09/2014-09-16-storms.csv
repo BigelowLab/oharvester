@@ -1,0 +1,5 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Edouard,2014,09,16,0,28.5,-56.7,hurricane,2,95,960,322.2184,80.5546
+Edouard,2014,09,16,6,29.5,-57.3,hurricane,3,100,956,322.2184,92.0624
+Edouard,2014,09,16,12,30.6,-57.8,hurricane,3,105,955,322.2184,103.57019999999999
+Edouard,2014,09,16,18,31.7,-57.7,hurricane,2,95,958,333.72619999999995,103.57019999999999

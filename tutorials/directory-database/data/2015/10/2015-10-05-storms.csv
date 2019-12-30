@@ -1,0 +1,5 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Joaquin,2015,10,05,0,32.6,-66,hurricane,1,75,961,345.234,74.80069999999999
+Joaquin,2015,10,05,6,33.6,-65.6,hurricane,1,75,964,345.234,74.80069999999999
+Joaquin,2015,10,05,12,34.4,-65.2,hurricane,1,75,964,356.74179999999996,74.80069999999999
+Joaquin,2015,10,05,18,35.3,-64.5,hurricane,1,75,964,368.2496,69.04679999999999

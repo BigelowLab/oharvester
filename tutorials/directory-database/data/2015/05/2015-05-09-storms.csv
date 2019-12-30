@@ -1,0 +1,4 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Ana,2015,05,09,6,32.2,-77.5,tropical storm,0,50,998,230.15599999999998,0
+Ana,2015,05,09,12,32.5,-77.8,tropical storm,0,50,1001,230.15599999999998,0
+Ana,2015,05,09,18,32.7,-78,tropical storm,0,45,1001,230.15599999999998,0

@@ -1,0 +1,5 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Two,2014,07,22,0,11.9,-44.4,tropical depression,-1,30,1012,0,0
+Two,2014,07,22,6,12.1,-45.7,tropical depression,-1,30,1012,0,0
+Two,2014,07,22,12,12.4,-47.2,tropical depression,-1,30,1012,0,0
+Two,2014,07,22,18,12.8,-48.8,tropical depression,-1,30,1012,0,0

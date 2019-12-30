@@ -1,0 +1,5 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Fred,2015,09,01,0,17.4,-24.9,hurricane,1,65,991,149.60139999999998,23.0156
+Fred,2015,09,01,6,17.8,-25.7,tropical storm,0,60,994,149.60139999999998,0
+Fred,2015,09,01,12,18.2,-26.7,tropical storm,0,50,1000,126.58579999999999,0
+Fred,2015,09,01,18,18.7,-27.6,tropical storm,0,45,1003,126.58579999999999,0

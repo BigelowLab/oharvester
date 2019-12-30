@@ -1,0 +1,6 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Hanna,2014,10,27,0,15.1,-82,tropical depression,-1,30,1006,0,0
+Hanna,2014,10,27,6,15,-82.4,tropical storm,0,35,1005,80.5546,0
+Hanna,2014,10,27,12,14.9,-83,tropical storm,0,35,1005,80.5546,0
+Hanna,2014,10,27,16,14.9,-83.3,tropical storm,0,35,1005,80.5546,0
+Hanna,2014,10,27,18,14.9,-83.5,tropical depression,-1,30,1006,0,0

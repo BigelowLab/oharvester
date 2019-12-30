@@ -1,0 +1,5 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Kate,2015,11,11,0,33.1,-71.3,hurricane,1,65,990,161.1092,23.0156
+Kate,2015,11,11,6,35.2,-67.6,hurricane,1,70,985,207.14039999999997,23.0156
+Kate,2015,11,11,12,36.2,-62.5,hurricane,1,75,980,345.234,34.523399999999995
+Kate,2015,11,11,18,37.6,-58.2,hurricane,1,65,980,379.75739999999996,46.0312

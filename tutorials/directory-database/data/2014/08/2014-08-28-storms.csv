@@ -1,0 +1,5 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Cristobal,2014,08,28,0,33.5,-70.7,hurricane,1,65,984,287.695,80.5546
+Cristobal,2014,08,28,6,34.8,-69,hurricane,1,65,982,287.695,80.5546
+Cristobal,2014,08,28,12,36.3,-67.1,hurricane,1,70,979,287.695,80.5546
+Cristobal,2014,08,28,18,37.5,-63.6,hurricane,1,75,971,333.72619999999995,80.5546

@@ -1,0 +1,5 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Claudette,2015,07,14,0,38.4,-65.7,tropical storm,0,45,1004,92.0624,0
+Claudette,2015,07,14,6,39.4,-64.1,tropical storm,0,45,1004,115.07799999999999,0
+Claudette,2015,07,14,12,40.7,-62,tropical storm,0,45,1004,138.09359999999998,0
+Claudette,2015,07,14,18,42,-60,tropical storm,0,40,1004,138.09359999999998,0

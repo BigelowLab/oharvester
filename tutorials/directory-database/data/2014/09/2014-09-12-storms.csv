@@ -1,0 +1,5 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Edouard,2014,09,12,0,17.2,-39.2,tropical storm,0,35,1006,46.0312,0
+Edouard,2014,09,12,6,17.7,-40.8,tropical storm,0,35,1005,69.04679999999999,0
+Edouard,2014,09,12,12,18.3,-42.3,tropical storm,0,40,1000,69.04679999999999,0
+Edouard,2014,09,12,18,18.9,-43.6,tropical storm,0,40,999,69.04679999999999,0

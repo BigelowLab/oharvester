@@ -1,0 +1,5 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Bill,2015,06,17,0,29.1,-96.9,tropical storm,0,40,998,149.60139999999998,0
+Bill,2015,06,17,6,30.3,-97.1,tropical depression,-1,30,999,0,0
+Bill,2015,06,17,12,31.7,-97.4,tropical depression,-1,30,999,0,0
+Bill,2015,06,17,18,32.6,-97.5,tropical depression,-1,25,999,0,0

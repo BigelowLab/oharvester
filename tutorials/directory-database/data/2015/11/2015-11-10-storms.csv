@@ -1,0 +1,5 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Kate,2015,11,10,0,26.4,-76.2,tropical storm,0,50,1006,80.5546,0
+Kate,2015,11,10,6,28,-76.2,tropical storm,0,55,1003,103.57019999999999,0
+Kate,2015,11,10,12,29.5,-75.4,tropical storm,0,60,998,103.57019999999999,0
+Kate,2015,11,10,18,31.2,-74,tropical storm,0,60,993,103.57019999999999,0

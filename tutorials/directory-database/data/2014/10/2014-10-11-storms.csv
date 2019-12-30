@@ -1,0 +1,4 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Fay,2014,10,11,6,26,-65,tropical storm,0,55,994,184.1248,0
+Fay,2014,10,11,12,27.2,-65.3,tropical storm,0,60,990,230.15599999999998,0
+Fay,2014,10,11,18,28.7,-65.4,tropical storm,0,60,988,310.7106,0

@@ -1,0 +1,5 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Ana,2015,05,11,0,34.7,-78.5,tropical depression,-1,30,1009,0,0
+Ana,2015,05,11,6,35.5,-78,tropical depression,-1,30,1010,0,0
+Ana,2015,05,11,12,36.2,-77.3,tropical depression,-1,30,1012,0,0
+Ana,2015,05,11,18,37,-76.3,tropical depression,-1,30,1012,0,0

@@ -1,0 +1,5 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Henri,2015,09,09,0,30.8,-61.4,tropical storm,0,35,1009,92.0624,0
+Henri,2015,09,09,6,30.8,-61.2,tropical storm,0,35,1007,92.0624,0
+Henri,2015,09,09,12,30.8,-61,tropical storm,0,40,1005,92.0624,0
+Henri,2015,09,09,18,30.9,-60.8,tropical storm,0,45,1003,138.09359999999998,0

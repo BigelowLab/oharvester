@@ -1,0 +1,4 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Erika,2015,08,28,0,17.2,-65.1,tropical storm,0,45,1006,138.09359999999998,0
+Erika,2015,08,28,6,17.5,-66.8,tropical storm,0,45,1006,161.1092,0
+Erika,2015,08,28,12,17.6,-68.6,tropical storm,0,45,1008,161.1092,0

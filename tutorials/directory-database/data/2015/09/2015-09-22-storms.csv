@@ -1,0 +1,5 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Ida,2015,09,22,0,21.3,-48.9,tropical storm,0,40,1002,253.17159999999998,0
+Ida,2015,09,22,6,21.4,-48.5,tropical storm,0,40,1002,241.66379999999998,0
+Ida,2015,09,22,12,21.4,-47.9,tropical storm,0,40,1002,230.15599999999998,0
+Ida,2015,09,22,18,21.1,-47.4,tropical storm,0,40,1003,230.15599999999998,0

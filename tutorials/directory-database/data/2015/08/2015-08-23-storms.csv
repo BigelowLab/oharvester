@@ -1,0 +1,5 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Danny,2015,08,23,0,15.6,-54,tropical storm,0,55,999,92.0624,0
+Danny,2015,08,23,6,15.7,-55.3,tropical storm,0,50,1001,92.0624,0
+Danny,2015,08,23,12,15.7,-56.7,tropical storm,0,45,1002,80.5546,0
+Danny,2015,08,23,18,15.6,-58.2,tropical storm,0,40,1004,80.5546,0

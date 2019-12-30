@@ -1,0 +1,3 @@
+name,year,month,day,hour,lat,long,status,category,wind,pressure,ts_diameter,hu_diameter
+Arthur,2014,07,05,0,40.2,-69.7,hurricane,1,65,976,253.17159999999998,103.57019999999999
+Arthur,2014,07,05,6,42.3,-67.6,tropical storm,0,60,981,253.17159999999998,0
