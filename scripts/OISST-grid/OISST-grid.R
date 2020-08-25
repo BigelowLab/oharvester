@@ -40,27 +40,41 @@ to360 <- function(x) {ix <- x < 0 ; x[ix] <- x[ix]+ 360; x}
 #' Construct opendap urls for provided dates
 #'
 #' @param dates Date-class, one or more dates
-#' @param type character, either "AVHRR" (default) or "AVHRR+AMSR"
+#' @param type character, either "AVHRR" (default) or "AVHRR+AMSR" (not available for V2.1)
+#' @param version character, the OISST version, defaults to "V2.1"
+#' @param release character, the OISST version release, defaults to "v02r01"
 #' @param base_url character, the base URL
 #' @return character URLs
 OISST_nc_url <- function(dates,
   type = c("AVHRR", "AVHRR-AMSR")[1],
+  version = "V2.1",
+  release = "v02r01",
   base_url = "https://www.ncei.noaa.gov/thredds/dodsC/OisstBase/NetCDF"){
 
   # AVHRR-AMSR/201109/amsr-avhrr-v2.20110901.nc
   # AVHRR/201801/avhrr-only-v2.20180101.nc
-  typ <- switch(type[1],
-                'AVHRR' = "avhrr-only-v2.",
-                'AVHRR-AMSR' = "amsr-avhrr-v2.",
-                stop("type not known:", type[1]))
+  # https://www.ncei.noaa.gov/thredds/dodsC/OisstBase/NetCDF/V2.1/AVHRR/202008/oisst-avhrr-v02r01.20200801.nc
   ym <- format(dates, "%Y%m")
-  d <- paste0(typ,
-              format(dates, "%Y%m%d"),
-              ".nc")
-
-  file.path(base_url, type[1], ym, d)
+  if (version[1] == 'V2.1'){
+    typ <- switch(type[1],
+                  'AVHRR' = sprintf("oisst-avhrr-%s.", release),
+                  'AVHRR-AMSR' = stop("AVHRR-AMSR not available for V2.1"),
+                  stop("type not known:", type[1]))
+  } else {
+    typ <- switch(type[1],
+                  'AVHRR' = "avhrr-only-v2.",
+                  'AVHRR-AMSR' = "amsr-avhrr-v2.",
+                  stop("type not known:", type[1]))
   }
-
+  ym <- format(dates, "%Y%m")
+  d <- paste0(typ, format(dates, "%Y%m%d"), ".nc")
+  if (version[1] == 'V2.1'){
+    uri <- file.path(base_url, version[1], 'AVHRR', ym, d)
+  } else {
+    uri <- file.path(base_url, type[1], ym, d)
+  }
+  uri
+}
 #' Retrieve OISST navigation values (start, count, lons, lats)
 #'
 #' @param x ncdfd4 object

@@ -38,3 +38,5 @@ Developer notes:
  - This is quick-and-dirty
  
  - There is limited error checking, so use at your own risk
+ 
+ - Now works with V2.1 (Aug 25, 2020)
