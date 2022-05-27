@@ -1,4 +1,65 @@
-# National Data Buoy Center
+NDBC-rnoaa
+================
 
-To read [NDBC](https://www.ndbc.noaa.gov/) data we suggest that you use the [rnoaa](https://ropensci.org/tutorials/rnoaa_tutorial/) package from [rOpenSci](https://ropensci.org/)
+# MUR Sea Surface Temperature at points
 
+This tool will harvest [NDBC](https://www.ndbc.noaa.gov/) buoy using the
+[rnoaa](https://docs.ropensci.org/rnoaa/) R package from
+[rOpenSci](https://ropensci.org/).
+
+#### Setup
+
+Have the file `NDBC-rnoaa.R` in your working directory
+
+#### Required packages
+
+If you don’t have the [rnoaa](https://CRAN.R-project.org/package=rnoaa),
+[dplyr](https://CRAN.R-project.org/package=dplyr) and
+[readr](https://CRAN.R-project.org/package=readr) packages installed
+then they will be installed for you automatically (from CRAN).
+
+#### Source
+
+Source the file: (be sure it is in your working directory)
+
+``` r
+source('NDBC-rnoaa.R')
+```
+
+#### Know your buoy
+
+See the [tutorial](../tutorials/NDBC-buoydata) for determining your
+buoy’s `id` and the datasets available to it.
+
+### Get the buoy data
+
+``` r
+x <- get_buoy_data(dataset = 'stdmet',
+                   buoyid = "CFWM1",
+                   years = c(2014, 2017:2018),
+                   outfile = "~/CFWM1-stdmet.csv.gz")
+```
+
+    ## Using h2014.nc
+
+    ## Using h2017.nc
+
+    ## Using h2018.nc
+
+And plot…
+
+``` r
+ggplot2::ggplot(data = x, ggplot2::aes(x = time, y = sea_surface_temperature)) +
+  ggplot2::geom_point(size = 0.2, alpha = 0.4) + 
+  ggplot2::labs(title = "CFWM1-stdmet") 
+```
+
+![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
+------------------------------------------------------------------------
+
+Developer notes:
+
+-   This is quick-and-dirty
+
+-   There is limited error checking, so use at your own risk
